@@ -1,56 +1,52 @@
-# TP Docker + Hadoop HDFS
+==================================================================
+                  HADOOP LAB - MAPREDUCE AVEC MAVEN
+                  Auteur : Maryem NAFIDI
+                  GitHub : https://github.com/MARYEMNAFIDI/hadoop_lab
+                  Date   : Novembre 2025
+==================================================================
 
-Ce TP a pour objectif d’installer un mini-cluster Hadoop via Docker, puis de manipuler HDFS.
-Il permet de comprendre la structure d’un cluster Hadoop, la gestion NameNode / DataNode et les commandes HDFS essentielles.
+Description
+-----------
+Ce dépôt contient mon laboratoire Hadoop MapReduce complet réalisé avec Maven.
+Le projet traite des fichiers d’entrée (listés dans inputFiles.lst) et génère
+des résultats (fichiers de sortie listés dans createdFiles.lst).
 
-## 📁 Structure du projet
+Contenu du dépôt
+----------------
+- pom.xml                → Configuration Maven + dépendances Hadoop
+- src/main/java/         → Code source Java (Mapper, Reducer, Driver)
+- inputFiles.lst         → Liste des fichiers d’entrée utilisés
+- createdFiles.lst       → Liste des fichiers de sortie générés
+- README.txt             → Ce fichier
+- .gitignore             → Ignore les fichiers temporaires et les builds
+- .gitattributes         → Support Git LFS si besoin
 
-tp-docker-hadoop/
-│
-├── README.md
-├── commands.md
-├── docker/
-│   └── docker-compose.yml
-├── data/
-│   ├── purchases.txt
-│   
-├── scripts/
-│   ├── hdfs_create_dirs.sh
-│   ├── hdfs_put_files.sh
-│   └── hdfs_list.sh
+Comment exécuter le projet (mode local / standalone)
+----------------------------------------------------
+1. Cloner le dépôt
+   git clone https://github.com/MARYEMNAFIDI/hadoop_lab.git
+   cd hadoop_lab
 
+2. Compiler avec Maven
+   mvn clean package
 
-## 🐳 Démarrage du Cluster Hadoop
+3. Lancer le job MapReduce
+   hadoop jar target/hadoop-lab-1.0-SNAPSHOT.jar com.tonpackage.TonDriverClasse chemin/input chemin/output
 
-```bash
-docker-compose -f docker/docker-compose.yml up -d
-```
+   (Remplace com.tonpackage.TonDriverClasse par le vrai nom de ta classe Driver)
 
-## 🔍 Vérifier les conteneurs
+Exemple concret
+---------------
+hdfs dfs -mkdir /input
+hdfs dfs -put inputFiles.lst /input/
 
-```bash
-docker ps
-```
+hadoop jar target/hadoop-lab-1.0-SNAPSHOT.jar com.tonpackage.TonDriverClasse /input /output
 
-## 🌐 Interface Web Hadoop NameNode
+hdfs dfs -cat /output/part-r-00000
 
-http://localhost:9870
+Technologies utilisées
+----------------------
+- Apache Hadoop 3.x
+- Apache Maven
+- Java 8 ou supérieur
 
-## 🐘 Commandes HDFS
-
-```bash
-hdfs dfs -mkdir /user/test
-hdfs dfs -ls /
-hdfs dfs -put data/exemple1.txt /user/test/
-hdfs dfs -get /user/test/exemple1.txt .
-hdfs dfs -rm /user/test/exemple1.txt
-```
-
-## 📜 Scripts inclus
-
-- hdfs_create_dirs.sh : crée les répertoires HDFS
-- hdfs_put_files.sh : upload automatique des fichiers
-- hdfs_list.sh : liste les fichiers du dossier HDFS
-
-## 📦 Auteur
-TP Hadoop Docker - Version prête à l’utilisation.
