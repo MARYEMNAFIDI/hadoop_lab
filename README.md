@@ -12,14 +12,13 @@ tp-docker-hadoop/
 ├── docker/
 │   └── docker-compose.yml
 ├── data/
-│   ├── exemple1.txt
-│   └── exemple2.txt
+│   ├── purchases.txt
+│   
 ├── scripts/
 │   ├── hdfs_create_dirs.sh
 │   ├── hdfs_put_files.sh
 │   └── hdfs_list.sh
-└── images/
-    └── (vos captures d’écran)
+
 
 ## 🐳 Démarrage du Cluster Hadoop
 
